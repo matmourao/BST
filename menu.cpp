@@ -27,7 +27,7 @@ Node* insertTree(Node* sNode, int iVal)
     if(iVal < sNode->iData)
     {
         sNode->ptrLeft = insertTree(sNode->ptrLeft, iVal);
-    }    
+    }
     else
     {
         sNode->ptrRight = insertTree(sNode->ptrRight, iVal);
@@ -53,6 +53,21 @@ Node* buildFile()
     
     cout << "Árvore criada!" << endl;
     return root;
+}
+
+int treeHeight(Node* sNode)
+{
+    if(sNode == nullptr) return -1; // Ao atingirmos uma folha, diminui 1 do total de nós caminhados
+    else
+    {
+        // Calcula recursivamente a altura das sub-árvores
+        int iRightHeight = treeHeight(sNode -> ptrRight);
+        int iLeftHeight = treeHeight(sNode -> ptrLeft);
+
+        // Ao atingir uma folha, a função irá voltar de nó em nó até a raiz somando 1 às alturas em cada subida e retorna a maior
+        if(iRightHeight > iLeftHeight) return iRightHeight + 1;
+        else return iLeftHeight + 1;
+    }
 }
 
 Node* buildInput()
