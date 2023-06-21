@@ -55,6 +55,7 @@ Node* buildFile()
     return root;
 }
 
+// Calcula a altura de uma árvore
 int treeHeight(Node* sNode)
 {
     if(sNode == nullptr) return -1; // Ao atingirmos uma folha, diminui 1 do total de nós caminhados
@@ -68,6 +69,62 @@ int treeHeight(Node* sNode)
         if(iRightHeight > iLeftHeight) return iRightHeight + 1;
         else return iLeftHeight + 1;
     }
+}
+
+// Auxiliar: Procura o nó com o menor valor de uma árvore
+Node* lesserLeaf(struct Node* sNode)
+{
+    struct Node* ptrCurrent = sNode;
+
+    // Anda sempre para a esquerda até chegar uma folha, garantindo que será o nó de menor valor
+    while(ptrCurrent && ptrCurrent -> ptrLeft != nullptr) ptrCurrent = ptrCurrent -> ptrLeft;
+
+    return ptrCurrent;
+}
+
+Node* deleteNode(struct Node* sNode, int iValue)
+{
+    // Se o nó é nulo, não tem o que remover
+    if(sNode == nullptr) return sNode;
+
+    // Procura o nó a ser removido
+    if(iValue < sNode -> iData) sNode -> ptrLeft = deleteNode(sNode -> ptrLeft, iValue);
+    else if(iValue > sNode -> iData) sNode -> ptrRight = deleteNode(sNode -> ptrRight, iValue);
+
+    // Ao encontrar o nó, começa o processo de remoção
+    else
+    {
+        struct Node* ptrTemp = nullptr;
+
+        // Se o nó possui somente um filho, o nó é removido e seu filho é o novo filho do nó anterior
+        if(sNode -> ptrLeft == nullptr)
+        {
+            ptrTemp = sNode -> ptrRight;
+            free(sNode);
+
+            return ptrTemp;
+        }
+        else if(sNode -> ptrRight == nullptr)
+        {
+            ptrTemp = sNode -> ptrLeft;
+            free(sNode);
+
+            return ptrTemp;
+        }
+
+        // Se o nó possui dois filho, procura o menor nó a direita para substituí-lo, garantindo a estabilidade da árvore 
+        ptrTemp = lesserLeaf(sNode -> ptrRight);
+
+        /***************************************************
+        Parte temporária:
+        Troca o valor do nó, o ideal é trocar os nós em si, mas a função já funciona do jeito que tá
+        ****************************************************/
+        sNode -> iData = ptrTemp -> iData;
+
+        sNode -> ptrRight = deleteNode(sNode -> ptrRight, ptrTemp -> iData);
+    }
+
+    return sNode;
 }
 
 Node* buildInput()
