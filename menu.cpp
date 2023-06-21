@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+
 using namespace std;
 
 struct Node
@@ -15,23 +16,24 @@ Node* newNode(int iVal)
     ptrTemp -> ptrRight = nullptr;
     ptrTemp -> ptrLeft = nullptr;
     ptrTemp -> iData = iVal;
+
     return ptrTemp;
 }
 
-Node* insertTree(Node* no, int iVal)
+Node* insertTree(Node* sNode, int iVal)
 {
-    if(no == nullptr) return newNode(iVal);
+    if(sNode == nullptr) return newNode(iVal);
     
-    if(iVal < no->iData)
+    if(iVal < sNode->iData)
     {
-        no->ptrLeft = insertTree(no->ptrLeft, iVal);
+        sNode->ptrLeft = insertTree(sNode->ptrLeft, iVal);
     }    
     else
     {
-        no->ptrRight = insertTree(no->ptrRight, iVal);
+        sNode->ptrRight = insertTree(sNode->ptrRight, iVal);
     }
 
-    return no;
+    return sNode;
 }
 
 Node* buildFile()
