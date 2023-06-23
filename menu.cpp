@@ -82,6 +82,7 @@ Node* lesserLeaf(struct Node* sNode)
     return ptrCurrent;
 }
 
+// Deleta um nó de uma árvore
 Node* deleteNode(struct Node* sNode, int iValue)
 {
     // Se o nó é nulo, não tem o que remover
@@ -125,6 +126,19 @@ Node* deleteNode(struct Node* sNode, int iValue)
     }
 
     return sNode;
+}
+
+// Calcula o número de nós numa árvore binária
+int treeSize(struct Node* root)
+{
+    if(root == nullptr) return 0; // Se a raíz é nullptr a árvore tem tamanho zero
+
+    int iLeftSize = treeSize(root -> ptrLeft); // Calcula o número de nós na sub-árvore a esquerda
+    int iRightSize = treeSize(root -> ptrRight); // Calcula o número de nós na sub-árvore a direita
+
+    int iSize = iLeftSize + iRightSize + 1; // Retorna o tamanho das sub-árvores + 1 (a própria raíz)
+
+    return iSize; 
 }
 
 Node* buildInput()
