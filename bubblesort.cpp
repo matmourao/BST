@@ -34,21 +34,27 @@ void swapNext(Node** head, Node* ptrNo)
 
 void bubbleSort(struct Node** head)
 {
-    struct Node* ptrTemp1 = *head;
+    struct Node* ptrTemp = *head;
     int iSize = 0;
-    while (ptrTemp1 != nullptr)
+    while(ptrTemp != nullptr)
     {
-        ptrTemp1 = ptrTemp1->ptrNext;
+        ptrTemp = ptrTemp->ptrNext;
         iSize++;
     }
 
-    for (int i=0; i<iSize; i++)
+    for(int i=1; i<iSize; i++)
     {
-        struct Node* ptrTemp = *head;
-        while (ptrTemp->ptrNext != nullptr)
+        ptrTemp = *head;
+        bool Swapped = false;
+        for(int j=0; j<iSize-i; j++)
         {
-            if (ptrTemp->iData > ptrTemp->ptrNext->iData) swapNext(head, ptrTemp);
+            if(ptrTemp->iData > ptrTemp->ptrNext->iData)
+            {
+                swapNext(head, ptrTemp);
+                Swapped = true;
+            }
             else ptrTemp = ptrTemp->ptrNext;
         }
+        if(!Swapped) break;
     }
 }
