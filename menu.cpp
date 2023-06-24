@@ -36,22 +36,78 @@ Node* insertTree(Node* sNode, int iVal)
     return sNode;
 }
 
-Node* buildFile()
+Node* searchParent(Node* root, Node* sNode)
 {
-    Node* root = nullptr;
+    if(sNode == root) return nullptr;
+    if(root == nullptr) return nullptr;
 
-    string strPath;
-    cout << "Digite o path do arquivo: ";
-    cin >> strPath;
+    int iValue = sNode->iData;
 
-    fstream fsFile(strPath);
-    string strVal;
-    while(getline(fsFile, strVal))
+    if(root->ptrLeft == sNode) return root;
+    if(root->ptrRight == sNode) return root;
+
+    if(iValue < root->iData) return searchParent(root->ptrLeft, sNode);
+    else return searchParent(root->ptrRight, sNode);
+}
+
+Node* swapRoot(Node* root, Node* sNode)
+{
+    if(root->ptrRight == sNode)
     {
-        root = insertTree(root, stoi(strVal));
+        Node* sLeft = root->ptrLeft;
+        root->ptrLeft = sNode->ptrLeft;
+        root->ptrRight = sNode->ptrRight;
+        sNode->ptrRight = root;
+        sNode->ptrLeft = sLeft;        
     }
-    
-    cout << "Árvore criada!" << endl;
+
+    else if(root->ptrLeft == sNode)
+    {
+        Node* sRight = root->ptrRight;
+        root->ptrLeft = sNode->ptrLeft;
+        root->ptrRight = sNode->ptrRight;
+        sNode->ptrLeft = root;
+        sNode->ptrRight = sRight; 
+    }
+
+    else
+    {
+        Node* sLeft = root->ptrLeft;
+        Node* sRight = root->ptrRight;
+        Node* sParent = searchParent(root, sNode);
+        if(sNode->iData < sParent->iData) sParent->ptrLeft = root;
+        else sParent->ptrRight = root;
+
+        root->ptrRight = sNode->ptrRight;
+        root->ptrLeft = sNode->ptrLeft;
+        sNode->ptrRight = sRight;
+        sNode->ptrLeft = sLeft;
+    }
+
+    return sNode;
+}
+
+Node* swapTree(Node* root, Node* sNode1, Node* sNode2)
+{
+    //realiza a troca e retorna o root
+    if(sNode1 == root) return swapRoot(root, sNode2);
+    if(sNode2 == root) return swapRoot(root, sNode1);
+
+    Node* sParent1 = searchParent(root, sNode1);
+    Node* sParent2 = searchParent(root, sNode2);
+
+    if(sNode1->iData < sParent1->iData) sParent1->ptrLeft = sNode2;
+    else sParent1->ptrRight = sNode2;
+    if(sNode2->iData < sParent2->iData) sParent2->ptrLeft = sNode1;
+    else sParent2->ptrRight = sNode1;
+
+    Node* sLeft1 = sNode1->ptrLeft;
+    Node* sRight1 = sNode1->ptrRight;
+    sNode1->ptrRight = sNode2->ptrRight;
+    sNode1->ptrLeft = sNode2->ptrLeft;
+    sNode2->ptrRight = sRight1;
+    sNode2->ptrLeft = sLeft1;
+
     return root;
 }
 
@@ -83,14 +139,14 @@ Node* lesserLeaf(struct Node* sNode)
 }
 
 // Deleta um nó de uma árvore
-Node* deleteNode(struct Node* sNode, int iValue)
+Node* deleteNode(struct Node* sNode, int iValue, Node* root)
 {
     // Se o nó é nulo, não tem o que remover
     if(sNode == nullptr) return sNode;
 
     // Procura o nó a ser removido
-    if(iValue < sNode -> iData) sNode -> ptrLeft = deleteNode(sNode -> ptrLeft, iValue);
-    else if(iValue > sNode -> iData) sNode -> ptrRight = deleteNode(sNode -> ptrRight, iValue);
+    if(iValue < sNode -> iData) sNode -> ptrLeft = deleteNode(sNode -> ptrLeft, iValue, root);
+    else if(iValue > sNode -> iData) sNode -> ptrRight = deleteNode(sNode -> ptrRight, iValue, root);
 
     // Ao encontrar o nó, começa o processo de remoção
     else
@@ -116,13 +172,10 @@ Node* deleteNode(struct Node* sNode, int iValue)
         // Se o nó possui dois filho, procura o menor nó a direita para substituí-lo, garantindo a estabilidade da árvore 
         ptrTemp = lesserLeaf(sNode -> ptrRight);
 
-        /***************************************************
-        Parte temporária:
-        Troca o valor do nó, o ideal é trocar os nós em si, mas a função já funciona do jeito que tá
-        ****************************************************/
-        sNode -> iData = ptrTemp -> iData;
-
-        sNode -> ptrRight = deleteNode(sNode -> ptrRight, ptrTemp -> iData);
+        //Troca os nós de lugar e continua o processo para a nova arvore
+        root = swapTree(root, sNode, ptrTemp);
+        ptrTemp -> ptrRight = deleteNode(ptrTemp -> ptrRight, iValue, root);
+        return ptrTemp;
     }
 
     return sNode;
@@ -139,6 +192,25 @@ int treeSize(struct Node* root)
     int iSize = iLeftSize + iRightSize + 1; // Retorna o tamanho das sub-árvores + 1 (a própria raíz)
 
     return iSize; 
+}
+
+Node* buildFile()
+{
+    Node* root = nullptr;
+
+    string strPath;
+    cout << "Digite o path do arquivo: ";
+    cin >> strPath;
+
+    fstream fsFile(strPath);
+    string strVal;
+    while(getline(fsFile, strVal))
+    {
+        root = insertTree(root, stoi(strVal));
+    }
+    
+    cout << "Árvore criada!" << endl;
+    return root;
 }
 
 Node* buildInput()
@@ -189,6 +261,62 @@ void printInstruc()
     cout << "Instruções" << endl;
 }
 
+void altura(Node* root)
+{
+    cout << "Altura = ";
+    cout << treeHeight(root);
+    cout << endl;
+}
+
+void tamanho(Node* root)
+{
+    cout << "Tamanho = ";
+    cout << treeSize(root);
+    cout << endl;
+}
+
+void inserir(Node* root)
+{
+    cout << "Digite o valor a ser inserido: ";
+    string strInput;
+    cin >> strInput;
+    insertTree(root, stoi(strInput));
+    cout << "Nó inserido!" << endl;
+}
+
+Node* remove(Node* root)
+{
+    cout << "Digite o valor a ser removido: ";
+    string strInput;
+    cin >> strInput;
+    return deleteNode(root, stoi(strInput), root);
+}
+
+void search(Node* root)
+{
+
+}
+
+void completa(Node* root)
+{
+
+}
+
+void perfeita(Node* root)
+{
+
+}
+
+void print(struct Node* ptrStartingNode)
+{
+    if(ptrStartingNode != nullptr)
+    {
+        print(ptrStartingNode -> ptrLeft);
+        cout << " " << ptrStartingNode -> iData;
+        print(ptrStartingNode -> ptrRight);
+    }
+}
+
 void menu(Node* root)
 {
     printInstruc();
@@ -211,49 +339,51 @@ void menu(Node* root)
 
         if(strInput == "altura")
         {
-            //
+            altura(root);
             continue;
         }
 
         if(strInput == "tamanho")
         {
-            //
+            tamanho(root);
             continue;
         }
 
-        if(strInput == "insert")
+        if(strInput == "inserir")
         {
-            //
+            inserir(root);
             continue;
         }
 
         if(strInput == "remove")
         {
-            //
+            root = remove(root);
+            cout << "Nó removido!" << endl;
             continue;
         }
 
         if(strInput == "search")
         {
-            //
+            search(root);
             continue;
         }
 
         if(strInput == "completa")
         {
-            //
+            completa(root);
             continue;
         }
 
         if(strInput == "perfeita")
         {
-            //
+            perfeita(root);
             continue;
         }
 
         if(strInput == "print")
         {
-            //
+            print(root);
+            cout << endl;
             continue;
         }
 
