@@ -36,22 +36,39 @@ Node* insertTree(Node* sNode, int iVal)
     return sNode;
 }
 
+// Função que dado um elemento, busca o endereço dele na árvore
+Node* searchNode(Node* root, int iData)
+{
+    if(root == nullptr) return nullptr; // Se a árvore é nula então retornará nulo
+
+    if(root -> iData == iData) return root; // Se o nó atual é o nó procurado, retorna o endereço dele
+
+    if(iData < root -> iData) return searchNode(root -> ptrLeft, iData); // Se o nó procurado é menor que o nó atual, procura na sub-árvore a esquerda
+
+    return searchNode(root -> ptrRight, iData); // Se o nó procurado é maior que o nó atual, procura na sub-árvore a direita
+}
+
+// Função que dado um nó e a raiz da árvore, busca seu nó pai nessa árvore
 Node* searchParent(Node* root, Node* sNode)
 {
-    if(sNode == root) return nullptr;
-    if(root == nullptr) return nullptr;
+    if(sNode == root) return nullptr; // Se o nó dado é nulo então retornará nulo
+    if(root == nullptr) return nullptr; // Se a árvore é nula então retornará nulo
 
     int iValue = sNode->iData;
 
+    // Verifica se root é o nó pai
     if(root->ptrLeft == sNode) return root;
     if(root->ptrRight == sNode) return root;
 
+    // Se não for, busca para a sub-árvore a direita ou a esquerda
     if(iValue < root->iData) return searchParent(root->ptrLeft, sNode);
     else return searchParent(root->ptrRight, sNode);
 }
 
+// Realiza a troca entre um node e a root da sua arvore, retornando o novo root
 Node* swapRoot(Node* root, Node* sNode)
 {
+    //se root for pai do Node, basta realizar a troca dos ponteiros
     if(root->ptrRight == sNode)
     {
         Node* sLeft = root->ptrLeft;
@@ -60,7 +77,6 @@ Node* swapRoot(Node* root, Node* sNode)
         sNode->ptrRight = root;
         sNode->ptrLeft = sLeft;        
     }
-
     else if(root->ptrLeft == sNode)
     {
         Node* sRight = root->ptrRight;
@@ -70,14 +86,17 @@ Node* swapRoot(Node* root, Node* sNode)
         sNode->ptrRight = sRight; 
     }
 
+    //se não for, a troca é mais complicada
     else
     {
-        Node* sLeft = root->ptrLeft;
-        Node* sRight = root->ptrRight;
+        //faz o pai do Node apontar para o filho do root
         Node* sParent = searchParent(root, sNode);
         if(sNode->iData < sParent->iData) sParent->ptrLeft = root;
         else sParent->ptrRight = root;
-
+        
+        //troca os ponteiros Right e Left do root com o Node
+        Node* sLeft = root->ptrLeft;
+        Node* sRight = root->ptrRight;
         root->ptrRight = sNode->ptrRight;
         root->ptrLeft = sNode->ptrLeft;
         sNode->ptrRight = sRight;
@@ -87,20 +106,24 @@ Node* swapRoot(Node* root, Node* sNode)
     return sNode;
 }
 
+// Realiza a troca e retorna o root
 Node* swapTree(Node* root, Node* sNode1, Node* sNode2)
 {
-    //realiza a troca e retorna o root
+    //se um dos nodes for o root. chama swapRoot
     if(sNode1 == root) return swapRoot(root, sNode2);
     if(sNode2 == root) return swapRoot(root, sNode1);
 
+    //define os ponteiros dos pais
     Node* sParent1 = searchParent(root, sNode1);
     Node* sParent2 = searchParent(root, sNode2);
 
+    //faz os pais apontarem para seus novos filhos
     if(sNode1->iData < sParent1->iData) sParent1->ptrLeft = sNode2;
     else sParent1->ptrRight = sNode2;
     if(sNode2->iData < sParent2->iData) sParent2->ptrLeft = sNode1;
     else sParent2->ptrRight = sNode1;
 
+    //troca os ponteiros Right e Left do Node1 com o Node2
     Node* sLeft1 = sNode1->ptrLeft;
     Node* sRight1 = sNode1->ptrRight;
     sNode1->ptrRight = sNode2->ptrRight;
@@ -194,6 +217,21 @@ int treeSize(struct Node* root)
     return iSize; 
 }
 
+// Verifica se a árvore é completa (nenhuma folha com exatamente um nó)
+bool is_complete(Node* root)
+{
+    if (root == nullptr) return true; // Se a raíz é nula, a árvore é completa
+
+    if(root -> ptrLeft == nullptr && root -> ptrRight == nullptr) return true; // Se o nó é folha, a árvore é completa
+
+    if(root -> ptrLeft == nullptr || root -> ptrRight == nullptr) return false; // Se o nó tem somente um filho, retorna falso, árvore não é completa
+
+    bool bLeft = is_complete(root -> ptrLeft); // Flag para mostrar se a sub-árvore a esquerda é completa
+    bool bRight = is_complete(root -> ptrRight); // Flag para mostrar se a sub-árvore a direita é completa
+
+    return bLeft && bRight; // Retorna se as duas sub-árvores são completas
+}
+
 Node* buildFile()
 {
     Node* root = nullptr;
@@ -277,34 +315,22 @@ void tamanho(Node* root)
 
 void inserir(Node* root)
 {
+    int iData;
     cout << "Digite o valor a ser inserido: ";
-    string strInput;
-    cin >> strInput;
-    insertTree(root, stoi(strInput));
+    cin >> iData;
+    insertTree(root, iData);
     cout << "Nó inserido!" << endl;
 }
 
 Node* remove(Node* root)
 {
+    int iData;
     cout << "Digite o valor a ser removido: ";
-    string strInput;
-    cin >> strInput;
-    return deleteNode(root, stoi(strInput), root);
+    cin >> iData;
+    return deleteNode(root, iData, root);
 }
 
-// Função que dado um elemento, busca o endereço dele na árvore
-Node* searchNode(Node* root, int iData)
-{
-    if(root == nullptr) return nullptr; // Se a árvore é nula então retornará nulo
-
-    if(root -> iData == iData) return root; // Se o nó atual é o nó procurado, retorna o endereço dele
-
-    if(iData < root -> iData) return searchNode(root -> ptrLeft, iData); // Se o nó procurado é menor que o nó atual, procura na sub-árvore a esquerda
-
-    return searchNode(root -> ptrRight, iData); // Se o nó procurado é maior que o nó atual, procura na sub-árvore a direita
-}
-
-Node* search(Node* root)
+void search(Node* root)
 {
     int iData;
     cout << "Digite o valor que deseja encontrar o endereço: ";
@@ -315,26 +341,21 @@ Node* search(Node* root)
     if(ptrNode == nullptr)
     {
         cout << "Valor não encontrado!" << endl;
-        return ptrNode;
+        return;
     }
     
-    return ptrNode;
+    cout << "Endereço: " << ptrNode << endl;
 }
 
 
-// Verifica se a árvore é completa (nenhuma folha com exatamente um nó)
-bool completa(Node* root)
+void completa(Node* root)
 {
-    if (root == nullptr) return true; // Se a raíz é nula, a árvore é completa
-
-    if(root -> ptrLeft == nullptr && root -> ptrRight == nullptr) return true; // Se o nó é folha, a árvore é completa
-
-    if(root -> ptrLeft == nullptr || root -> ptrRight == nullptr) return false; // Se o nó tem somente um filho, retorna falso, árvore não é completa
-
-    bool bLeft = completa(root -> ptrLeft); // Flag para mostrar se a sub-árvore a esquerda é completa
-    bool bRight = completa(root -> ptrRight); // Flag para mostrar se a sub-árvore a direita é completa
-
-    return bLeft && bRight; // Retorna se as duas sub-árvores são completas
+    if(is_complete(root))
+    {
+        cout << "A árvore é completa";
+    }
+    else cout << "A árvore não é completa";
+    cout << endl;
 }
 
 void perfeita(Node* root)
