@@ -292,10 +292,35 @@ Node* remove(Node* root)
     return deleteNode(root, stoi(strInput), root);
 }
 
-void search(Node* root)
+// Função que dado um elemento, busca o endereço dele na árvore
+Node* searchNode(Node* root, int iData)
 {
+    if(root == nullptr) return nullptr; // Se a árvore é nula então retornará nulo
 
+    if(root -> iData == iData) return root; // Se o nó atual é o nó procurado, retorna o endereço dele
+
+    if(iData < root -> iData) return searchNode(root -> ptrLeft, iData); // Se o nó procurado é menor que o nó atual, procura na sub-árvore a esquerda
+
+    return searchNode(root -> ptrRight, iData); // Se o nó procurado é maior que o nó atual, procura na sub-árvore a direita
 }
+
+Node* search(Node* root)
+{
+    int iData;
+    cout << "Digite o valor que deseja encontrar o endereço: ";
+    cin >> iData;
+
+    Node* ptrNode = searchNode(root, iData);
+
+    if(ptrNode == nullptr)
+    {
+        cout << "Valor não encontrado!" << endl;
+        return ptrNode;
+    }
+    
+    return ptrNode;
+}
+
 
 // Verifica se a árvore é completa (nenhuma folha com exatamente um nó)
 bool completa(Node* root)
