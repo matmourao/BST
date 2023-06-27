@@ -297,9 +297,19 @@ void search(Node* root)
 
 }
 
-void completa(Node* root)
+// Verifica se a árvore é completa (nenhuma folha com exatamente um nó)
+bool completa(Node* root)
 {
+    if (root == nullptr) return true; // Se a raíz é nula, a árvore é completa
 
+    if(root -> ptrLeft == nullptr && root -> ptrRight == nullptr) return true; // Se o nó é folha, a árvore é completa
+
+    if(root -> ptrLeft == nullptr || root -> ptrRight == nullptr) return false; // Se o nó tem somente um filho, retorna falso, árvore não é completa
+
+    bool bLeft = completa(root -> ptrLeft); // Flag para mostrar se a sub-árvore a esquerda é completa
+    bool bRight = completa(root -> ptrRight); // Flag para mostrar se a sub-árvore a direita é completa
+
+    return bLeft && bRight; // Retorna se as duas sub-árvores são completas
 }
 
 void perfeita(Node* root)
