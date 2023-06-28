@@ -218,7 +218,7 @@ int treeSize(struct Node* root)
 }
 
 // Verifica se a árvore é completa (nenhuma folha com exatamente um nó)
-bool is_complete(Node* root)
+bool isComplete(Node* root)
 {
     if (root == nullptr) return true; // Se a raíz é nula, a árvore é completa
 
@@ -226,10 +226,44 @@ bool is_complete(Node* root)
 
     if(root -> ptrLeft == nullptr || root -> ptrRight == nullptr) return false; // Se o nó tem somente um filho, retorna falso, árvore não é completa
 
-    bool bLeft = is_complete(root -> ptrLeft); // Flag para mostrar se a sub-árvore a esquerda é completa
-    bool bRight = is_complete(root -> ptrRight); // Flag para mostrar se a sub-árvore a direita é completa
+    bool bLeft = isComplete(root -> ptrLeft); // Flag para mostrar se a sub-árvore a esquerda é completa
+    bool bRight = isComplete(root -> ptrRight); // Flag para mostrar se a sub-árvore a direita é completa
 
     return bLeft && bRight; // Retorna se as duas sub-árvores são completas
+}
+
+// Calcula a altura do ramo que leva ao nó mais a esquerda da árvore
+int leftHeight(Node* root)
+{
+    int iHeight = -1;
+
+    while(root != nullptr)
+    {
+        iHeight++;
+        root = root -> ptrLeft;
+    }
+
+    return iHeight;
+}
+
+// Verifica se uma árvore é perfeita
+bool isPerfect(Node* root, int iLesserHeight, int iDepth = 0)
+{
+    if(root == nullptr) return true; // Se a raíz é nula, é perfeita
+
+    // Verifica se o nó é uma folha
+    if (root -> ptrLeft == nullptr && root -> ptrRight == nullptr)
+    {
+        if(iLesserHeight == iDepth + 1) return true; // Se é uma folha, verifica se seu nível é correspondente ao das outras
+        return false;
+    }
+    
+    // Se o código chega aqui, então o nó não é uma folha, logo, verifica-se a quantidade de filhos, se algum for nulo, não é perfeita
+    if (root -> ptrLeft == nullptr || root -> ptrRight == nullptr) return false;
+    
+    // Verifica se as sub-árvores também são perfeitas, aumentando em 1 o nível atual
+    if(isPerfect(root -> ptrLeft, iLesserHeight, iDepth + 1) && isPerfect(root -> ptrRight, iLesserHeight, iDepth + 1)) return true;
+    return false;
 }
 
 Node* buildFile()
@@ -350,7 +384,7 @@ void search(Node* root)
 
 void completa(Node* root)
 {
-    if(is_complete(root))
+    if(isComplete(root))
     {
         cout << "A árvore é completa";
     }
