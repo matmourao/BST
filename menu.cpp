@@ -247,7 +247,7 @@ int leftHeight(Node* root)
 }
 
 // Verifica se uma árvore é perfeita
-bool isPerfect(Node* root, int iHeight, int iDepth = 0)
+bool isPerfect(Node* root, int iHeight, int iDepth)
 {
     if(root == nullptr) return true; // Se a raíz é nula, é perfeita
 
@@ -394,7 +394,13 @@ void completa(Node* root)
 
 void perfeita(Node* root)
 {
-
+    int iHeight = leftHeight(root);
+    if(isPerfect(root, iHeight, 0))
+    {
+        cout << "A árvore é perfeita";
+    }
+    else cout << "A árvore não é perfeita";
+    cout << endl;
 }
 
 void print(struct Node* ptrStartingNode)
