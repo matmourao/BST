@@ -111,7 +111,7 @@ void shellSort(Node** head)
                 Node* ptrTemp1 = ptrPrior;
                 Node* ptrTemp2 = ptrPost;
                 
-                while(ptrTemp2->data < ptrTemp1->iData)
+                while(ptrTemp2->iData < ptrTemp1->iData)
                 {
                     swapNodes(head, ptrTemp1, ptrTemp2);
                     //garante que os ponteiros continuem apontando para o mesmo indice da lista
