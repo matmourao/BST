@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <time.h>
 
 using namespace std;
 
@@ -268,6 +269,7 @@ bool isPerfect(Node* root, int iHeight, int iDepth)
 
 Node* buildFile()
 {
+    clock_t start = clock();
     Node* root = nullptr;
 
     string strPath;
@@ -282,6 +284,9 @@ Node* buildFile()
     }
     
     cout << "Árvore criada!" << endl;
+    clock_t end = clock();
+    double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
+    cout << "Tempo levado: " << elapsed << " seg" << endl;
     return root;
 }
 
@@ -290,6 +295,7 @@ Node* buildInput()
     cout << "Digite um a um os elementos da árvore" << endl;
     cout << "Digite 'N' quando tiver acabado" << endl;
 
+    clock_t start = clock();
     Node* root = nullptr;
 
     while(true)
@@ -303,6 +309,9 @@ Node* buildInput()
     }
 
     cout << "Árvore criada!" << endl;
+    clock_t end = clock();
+    double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
+    cout << "Tempo levado: " << elapsed << " seg" << endl;
     return root;
 }
 
@@ -335,16 +344,24 @@ void printInstruc()
 
 void altura(Node* root)
 {
-    cout << "Altura = ";
-    cout << treeHeight(root);
-    cout << endl;
+    clock_t start = clock();
+
+    cout << "Altura = " << treeHeight(root) << endl;
+    
+    clock_t end = clock();
+    double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
+    cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
 
 void tamanho(Node* root)
 {
-    cout << "Tamanho = ";
-    cout << treeSize(root);
-    cout << endl;
+    clock_t start = clock();
+
+    cout << "Tamanho = " << treeSize(root) << endl;
+
+    clock_t end = clock();
+    double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
+    cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
 
 void inserir(Node* root)
@@ -352,8 +369,15 @@ void inserir(Node* root)
     int iData;
     cout << "Digite o valor a ser inserido: ";
     cin >> iData;
+
+    clock_t start = clock();
+
     insertTree(root, iData);
     cout << "Nó inserido!" << endl;
+
+    clock_t end = clock();
+    double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
+    cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
 
 Node* remove(Node* root)
@@ -361,7 +385,16 @@ Node* remove(Node* root)
     int iData;
     cout << "Digite o valor a ser removido: ";
     cin >> iData;
-    return deleteNode(root, iData, root);
+
+    clock_t start = clock();
+    Node* ptrTemp = deleteNode(root, iData, root);
+    clock_t end = clock();
+
+    cout << "Nó removido!" << endl;
+    double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
+    cout << "Tempo levado: " << elapsed << " seg" << endl;
+    
+    return ptrTemp;
 }
 
 void search(Node* root)
@@ -370,30 +403,41 @@ void search(Node* root)
     cout << "Digite o valor que deseja encontrar o endereço: ";
     cin >> iData;
 
+    clock_t start = clock();
     Node* ptrNode = searchNode(root, iData);
+    clock_t end = clock();
 
     if(ptrNode == nullptr)
     {
         cout << "Valor não encontrado!" << endl;
-        return;
     }
-    
-    cout << "Endereço: " << ptrNode << endl;
+    else cout << "Endereço: " << ptrNode << endl;
+
+    double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
+    cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
 
 
 void completa(Node* root)
 {
+    clock_t start = clock();
+
     if(isComplete(root))
     {
         cout << "A árvore é completa";
     }
     else cout << "A árvore não é completa";
     cout << endl;
+
+    clock_t end = clock();
+    double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
+    cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
 
 void perfeita(Node* root)
 {
+    clock_t start = clock();
+
     int iHeight = leftHeight(root);
     if(isPerfect(root, iHeight, 0))
     {
@@ -401,6 +445,10 @@ void perfeita(Node* root)
     }
     else cout << "A árvore não é perfeita";
     cout << endl;
+
+    clock_t end = clock();
+    double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
+    cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
 
 void print(struct Node* ptrStartingNode)
