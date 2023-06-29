@@ -6,6 +6,12 @@
 
 using namespace std;
 
+struct List
+{
+    int iPayload;
+    struct List* ptrNext;
+    struct List* ptrPrev;
+};
 
 Node* newNode(int iVal)
 {
@@ -470,6 +476,48 @@ void print(Node* root) {
         }
     }
 }
+
+List* newList(int iData)
+{
+    List* ptrNewList = new List;
+    ptrNewList->iPayload = iData;
+    ptrNewList->ptrNext = nullptr;
+    ptrNewList->ptrPrev = nullptr;
+
+    return ptrNewList;
+}
+
+List* treeToList(Node* ptrStartingNode)
+{
+    if(ptrStartingNode == nullptr) return nullptr; // Se a raíz é nullptr a árvore é vazia
+
+    List* ptrList = newList(ptrStartingNode->iData); // Cria um nó da lista com o valor da raíz
+    List* ptrLeft = treeToList(ptrStartingNode->ptrLeft); // Cria uma lista com os nós da sub-árvore a esquerda
+    List* ptrRight = treeToList(ptrStartingNode->ptrRight); // Cria uma lista com os nós da sub-árvore a direita
+
+    if(ptrLeft != nullptr) 
+    {
+        ptrList->ptrNext = ptrLeft; // Conecta o primeiro nó da lista com o primeiro nó da lista da sub-árvore a esquerda
+        ptrLeft->ptrPrev = ptrList; // Conecta o primeiro nó da lista da sub-árvore a esquerda com o primeiro nó da lista
+    }
+
+    List* ptrListTail = ptrList; // Cria um ponteiro para o último nó da lista
+
+    while(ptrListTail->ptrNext != nullptr) 
+    {
+        ptrListTail = ptrListTail->ptrNext; 
+    }
+
+    if(ptrRight != nullptr) 
+    {
+        ptrListTail->ptrNext = ptrRight; // Conecta o último nó da lista com o primeiro nó da lista da sub-árvore a direita
+        ptrRight->ptrPrev = ptrListTail; // Conecta o primeiro nó da lista da sub-árvore a direita com o último nó da lista
+    }
+
+    // Retorna o primeiro nó da lista
+    return ptrList;
+}
+
 
 void menu(Node* root)
 {
