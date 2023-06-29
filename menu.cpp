@@ -1,15 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <time.h>
+#include "node.h"
+#include "queue.cpp"
 
 using namespace std;
 
-struct Node
-{
-    int iData;
-    Node* ptrLeft;
-    Node* ptrRight;
-};
 
 Node* newNode(int iVal)
 {
@@ -451,13 +447,27 @@ void perfeita(Node* root)
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
 
-void print(struct Node* ptrStartingNode)
-{
-    if(ptrStartingNode != nullptr)
-    {
-        print(ptrStartingNode -> ptrLeft);
-        cout << " " << ptrStartingNode -> iData;
-        print(ptrStartingNode -> ptrRight);
+// Printa a lista por BFS
+void print(Node* root) {
+    // Enfileira o nó raiz.
+    enfileirar(root);
+
+    while(!isQueueEmpty()) 
+    { 
+        // Desenfileira o próximo nó.
+        Node* currentNode = desenfileirar();
+
+        // Imprime o valor do nó.
+        cout << currentNode->iData << ' ';
+
+        // Enfileira os filhos (se existirem).
+        if(currentNode->ptrLeft != nullptr) {
+            enfileirar(currentNode->ptrLeft);
+        }
+
+        if(currentNode->ptrRight != nullptr) {
+            enfileirar(currentNode->ptrRight);
+        }
     }
 }
 
