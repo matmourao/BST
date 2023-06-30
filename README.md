@@ -19,7 +19,7 @@ O módulo [menu](headers/menu.hpp) inclui todas as funções que serão utilizad
 ### Tree:
 O módulo [tree.hpp](headers/tree.hpp) abrange todas as funções que dizem respeito a uma árvore binária de busca, desde a inserção de nós para sua criação, feita através de um arquivo .txt ou a partir de dados inseridos pelo próprio usuário, até funções de pesquisa ou informação.
 
-- Os arquivos .txt, para a criação de BST’s, estão disponíveis na pasta [arvores](arvores), além da representação gráfica das árvores construídas a partir deles.
+- Os arquivos .txt, para a criação de BST’s, estão disponíveis na pasta [arvores](arvores), além da representação gráfica das árvores construídas a partir deles. Os elementos a serem adicionados à árvore devem estar dispostos um em cada linha do arquivo .txt.
 
 - Mais uma vez, o código de desenvolvimento pode ser encontrado em [sources](sources), no arquivo [tree.cpp](sources/tree.cpp). Nele se encontram funções que verificam se a árvore é perfeita ou se está completa, qual é sua altura ou tamanha, e que inserem, deletam ou buscam elementos.
 
@@ -37,6 +37,27 @@ O módulo [visualize.hpp](headers/visualize.hpp) inclui as funções de visualiz
 ### Main:
 Finalmente, através do arquivo [main.cpp](main.cpp) podemos executar todo o código.
 Na pasta [output](output) estão os arquivos .exe.
+
+## Checklist objetivos:
+- [x] Menu ASCII: [menu.hpp](headers/menu.hpp) e [menu.cpp](sources/menu.cpp)
+- [x] Tempo de processamento: clock() no começo e no fim de cada função
+- [x] Construção de BST por .txt: buildFile() em [menu.cpp](sources/menu.cpp) \
+      (o arquivo txt deve estar em [arvores](arvores) e cada elemento deve estar em uma linha) 
+- [x] Construção de BST por usário: buildInput() em [menu.cpp](sources/menu.cpp)
+- [x] Altura da árvore: treeHeight() em [tree.cpp](sources/tree.cpp)
+- [x] Tamanho da árvore: treeSize() em [tree.cpp](sources/tree.cpp)
+- [x] Inserção de elemento por usuário: insertTree() em [tree.cpp](sources/tree.cpp)
+- [x] Remoção de elemento por usuário: deleteNode() em [tree.cpp](sources/tree.cpp)
+- [x] Busca de elemento por usuário: searchNode() em [tree.cpp](sources/tree.cpp)
+- [x] Árvore completa: isComplete em [tree.cpp](sources/tree.cpp)
+- [x] Árvore perfeita: isPerfect() em [tree.cpp](sources/tree.cpp)
+- [x] Visualização da árvore: BFS() em [tree.cpp](sources/tree.cpp) (funções auxiliares em [queue.cpp](sources/queue.cpp))
+- [x] Conversão da árvore em lista: treeToList em [list.cpp](sources/list.cpp)
+- [x] Bubble Sort: bubbleSort em [list.cpp](sources/list.cpp)
+- [x] Selection Sort: selectionSort em [list.cpp](sources/list.cpp)
+- [x] Insertion Sort: insertionSort em [list.cpp](sources/list.cpp)
+- [x] Shell Sort: shellSort em [list.cpp](sources/list.cpp)
+- [x] Representação gráfica das ordenações: [visualize.hpp](headers/visualize.hpp) e [visualize.cpp](sources/visualize.cpp)
 
 ## Desenvolvedores:
 
