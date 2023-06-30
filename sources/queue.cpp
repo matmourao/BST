@@ -1,15 +1,12 @@
-#include "node.h"
-
-struct QueueNode {
-    Node* treeNode;
-    QueueNode* next;
-};
+#include <iostream>
+#include "../headers/queue.hpp"
 
 QueueNode* front = nullptr;
 QueueNode* rear = nullptr;
 
 // Implementação da função enfileirar
-void enfileirar(Node* treeNode) {
+void enfileirar(Node* treeNode) 
+{
     QueueNode* temp = new QueueNode();
     temp->treeNode = treeNode;
     temp->next = nullptr;
@@ -24,7 +21,8 @@ void enfileirar(Node* treeNode) {
 }
 
 // Implementação da função desenfileirar
-Node* desenfileirar() {
+Node* desenfileirar() 
+{
     if(front == nullptr) {
         return nullptr;
     }
@@ -43,6 +41,7 @@ Node* desenfileirar() {
 }
 
 // Implementação da função para verificar se a fila está vazia
-bool isQueueEmpty() {
+bool isQueueEmpty() 
+{
     return front == nullptr;
 }

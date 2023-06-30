@@ -1,18 +1,21 @@
-#include <cmath>
 #include <iostream>
-using namespace std;
+#include <cmath>
+#include "../headers/list.hpp"
 
-struct Node
+List* newList(int iVal)
 {
-    int iData;
-    struct Node* ptrNext;
-    struct Node* ptrPrev;
-};
+    List* ptrNewList = new List;
+    ptrNewList->iData = iVal;
+    ptrNewList->ptrNext = nullptr;
+    ptrNewList->ptrPrev = nullptr;
 
-void swapNext(Node** head, Node* ptrNo)
+    return ptrNewList;
+}
+
+void swapNext(List** head, List* ptrNo)
 {
-    Node* ptrNext = ptrNo->ptrNext;
-    Node* ptrTemp;
+    List* ptrNext = ptrNo->ptrNext;
+    List* ptrTemp;
 
     if(ptrNo == *head)
     {
@@ -25,14 +28,14 @@ void swapNext(Node** head, Node* ptrNo)
         ptrNext->ptrNext->ptrPrev = ptrNo; 
     }
 
-    Node* ptrNoPrev = ptrNo->ptrPrev;
+    List* ptrNoPrev = ptrNo->ptrPrev;
     ptrNo->ptrPrev = ptrNext;
     ptrNo->ptrNext = ptrNext->ptrNext;
     ptrNext->ptrNext = ptrNo;
     ptrNext->ptrPrev = ptrNoPrev;
 }
 
-void swapNodes(Node** head, Node* ptrNode1, Node* ptrNode2)
+void swapNodes(List** head, List* ptrNode1, List* ptrNode2)
 {
     if(ptrNode1->ptrNext == ptrNode2)
     {
@@ -55,7 +58,7 @@ void swapNodes(Node** head, Node* ptrNode1, Node* ptrNode2)
     
     if(ptrNode2->ptrNext != nullptr) ptrNode2->ptrNext->ptrPrev = ptrNode1;
 
-    Node* ptrTemp = (Node*)malloc(sizeof(Node));
+    List* ptrTemp = (List*)malloc(sizeof(List));
     ptrTemp->ptrPrev = ptrNode1->ptrPrev;
     ptrTemp->ptrNext = ptrNode1->ptrNext;
 
@@ -66,10 +69,10 @@ void swapNodes(Node** head, Node* ptrNode1, Node* ptrNode2)
     free(ptrTemp);
 }
 
-int lenght(Node** head)
+int lenght(List** head)
 {
     int iSize = 0;
-    Node* ptrTemp = (*head);
+    List* ptrTemp = (*head);
     while(ptrTemp != nullptr)
     {
         iSize++;
@@ -78,7 +81,72 @@ int lenght(Node** head)
     return iSize;
 }
 
-void shellSort(Node** head)
+void bubbleSort(struct List** head)
+{
+    struct List* ptrTemp = *head;
+    int iSize = 0;
+    while(ptrTemp != nullptr)
+    {
+        ptrTemp = ptrTemp->ptrNext;
+        iSize++;
+    }
+
+    for(int i=1; i<iSize; i++)
+    {
+        ptrTemp = *head;
+        bool Swapped = false;
+        for(int j=0; j<iSize-i; j++)
+        {
+            if(ptrTemp->iData > ptrTemp->ptrNext->iData)
+            {
+                swapNext(head, ptrTemp);
+                Swapped = true;
+            }
+            else ptrTemp = ptrTemp->ptrNext;
+        }
+        if(!Swapped) break;
+    }
+}
+
+void selectionSort(struct List** head)
+{
+    struct List* ptrTemp1 = (*head);
+
+    while (ptrTemp1 != nullptr)
+    {
+        struct List* ptrTemp2 = ptrTemp1->ptrNext;
+        struct List* ptrMin = ptrTemp1;
+
+        while (ptrTemp2 != nullptr)
+        {
+            if (ptrMin->iData > ptrTemp2->iData)
+            {
+                ptrMin = ptrTemp2;
+            }
+            ptrTemp2 = ptrTemp2->ptrNext;
+        }
+
+        swapNodes(head, ptrMin, ptrTemp1);
+
+        ptrTemp1 = ptrMin->ptrNext;
+    }
+}
+
+void insertSort(List** head)
+{
+    List* ptrTemp = (*head);
+    while(ptrTemp->ptrNext != nullptr)
+    {
+        ptrTemp = ptrTemp->ptrNext;
+        while(ptrTemp->iData < ptrTemp->ptrPrev->iData)
+        {
+            swapNodes(head, ptrTemp, ptrTemp->ptrPrev);
+            if(ptrTemp->ptrPrev == nullptr) break;
+        }
+    }
+}
+
+void shellSort(List** head)
 {
     int k = 0;
     while(pow(2,k+1)<=lenght(head))
@@ -91,8 +159,8 @@ void shellSort(Node** head)
         int iGap = pow(2,k)-1;
         //first e second apontam para os 2 primeiros elementos
         //da sublista dos elementos separados pelo iGap
-        Node* ptrFirst = (*head);
-        Node* ptrSecond = ptrFirst;
+        List* ptrFirst = (*head);
+        List* ptrSecond = ptrFirst;
         for(int i=0; i<iGap; i++)
         {
             ptrSecond = ptrSecond->ptrNext;
@@ -101,15 +169,15 @@ void shellSort(Node** head)
         for(int i=0; i<iGap; i++)
         {
             //loop que passa por cada sublista
-            Node* ptrPrior = ptrFirst;
-            Node* ptrPost = ptrSecond;
+            List* ptrPrior = ptrFirst;
+            List* ptrPost = ptrSecond;
             
             while(ptrPost != nullptr)
             {
                 //faz um insertion sort com essa sublista
                 //a cada loop ptrPrior e ptrPost andam um elemento na sublista
-                Node* ptrTemp1 = ptrPrior;
-                Node* ptrTemp2 = ptrPost;
+                List* ptrTemp1 = ptrPrior;
+                List* ptrTemp2 = ptrPost;
                 
                 while(ptrTemp2->iData < ptrTemp1->iData)
                 {
@@ -151,4 +219,35 @@ void shellSort(Node** head)
         
         k--;
     }
+}
+
+List* treeToList(Node* root)
+{
+    if(root == nullptr) return nullptr; // Se a raíz é nullptr a árvore é vazia
+
+    List* ptrList = newList(root->iData); // Cria um nó da lista com o valor da raíz
+    List* ptrLeft = treeToList(root->ptrLeft); // Cria uma lista com os nós da sub-árvore a esquerda
+    List* ptrRight = treeToList(root->ptrRight); // Cria uma lista com os nós da sub-árvore a direita
+
+    if(ptrLeft != nullptr) 
+    {
+        ptrList->ptrNext = ptrLeft; // Conecta o primeiro nó da lista com o primeiro nó da lista da sub-árvore a esquerda
+        ptrLeft->ptrPrev = ptrList; // Conecta o primeiro nó da lista da sub-árvore a esquerda com o primeiro nó da lista
+    }
+
+    List* ptrListTail = ptrList; // Cria um ponteiro para o último nó da lista
+
+    while(ptrListTail->ptrNext != nullptr) 
+    {
+        ptrListTail = ptrListTail->ptrNext; 
+    }
+
+    if(ptrRight != nullptr) 
+    {
+        ptrListTail->ptrNext = ptrRight; // Conecta o último nó da lista com o primeiro nó da lista da sub-árvore a direita
+        ptrRight->ptrPrev = ptrListTail; // Conecta o primeiro nó da lista da sub-árvore a direita com o último nó da lista
+    }
+
+    // Retorna o primeiro nó da lista
+    return ptrList;
 }
