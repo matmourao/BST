@@ -17,7 +17,7 @@ O módulo [menu](headers/menu.hpp) inclui todas as funções que serão utilizad
 - Na pasta [sources](sources), podemos encontrar o arquivo [menu.cpp](sources/menu.cpp) onde as funções do menu estão realmente desenvolvidas.
 
 ### Tree:
-O módulo [tree.hpp](headers/tree.hpp) abrange todas as funções que dizem respeito a uma árvore binária de busca, desde sua criação, feita através de um arquivo .txt ou a partir de dados inseridos pelo próprio usuário, até funções de pesquisa ou informação.
+O módulo [tree.hpp](headers/tree.hpp) abrange todas as funções que dizem respeito a uma árvore binária de busca, desde a inserção de nós para sua criação, feita através de um arquivo .txt ou a partir de dados inseridos pelo próprio usuário, até funções de pesquisa ou informação.
 
 - Os arquivos .txt, para a criação de BST’s, estão disponíveis na pasta [arvores](arvores), além da representação gráfica das árvores construídas a partir deles.
 
