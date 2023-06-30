@@ -77,7 +77,7 @@ void displayList(struct List* head)
         while (node != nullptr)
         {
             if (hashes[node->iData] >= height)
-                cout << string(max_digits, 'O') + " ";
+                cout << string(max_digits, '#') + " ";
             else
                 cout << string(max_digits, ' ') + " ";
             node = node->ptrNext;
