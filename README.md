@@ -56,7 +56,7 @@ Na pasta [output](output) estão os arquivos .exe.
 - [x] Selection Sort: selectionSort em [list.cpp](sources/list.cpp)
 - [x] Insertion Sort: insertionSort em [list.cpp](sources/list.cpp)
 - [x] Shell Sort: shellSort em [list.cpp](sources/list.cpp)
-- [x] Representação gráfica das ordenações: [visualize.hpp](visualize/visualize.hpp) e [visualize.cpp](sources/visualize.cpp)
+- [x] Representação gráfica das ordenações: [visualize.hpp](headers/visualize.hpp) e [visualize.cpp](sources/visualize.cpp)
 
 ## Desenvolvedores:
 
