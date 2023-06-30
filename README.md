@@ -42,7 +42,7 @@ Na pasta [output](output) estão os arquivos .exe.
 - [x] Menu ASCII: [menu.hpp](headers/menu.hpp) e [menu.cpp](sources/menu.cpp)
 - [x] Tempo de processamento: clock() no começo e no fim de cada função
 - [x] Construção de BST por .txt: buildFile() em [menu.cpp](sources/menu.cpp)
-      (o arquivo txt deve estar em [arvores](arvores) e cada elemento deve estar em uma linha) 
+(o arquivo txt deve estar em [arvores](arvores) e cada elemento deve estar em uma linha) 
 - [x] Construção de BST por usário: buildInput() em [menu.cpp](sources/menu.cpp)
 - [x] Altura da árvore: treeHeight() em [tree.cpp](sources/tree.cpp)
 - [x] Tamanho da árvore: treeSize() em [tree.cpp](sources/tree.cpp)
