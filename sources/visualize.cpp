@@ -3,9 +3,9 @@
 #include <vector>
 #include <algorithm>
 #include <iomanip>
-#include <thread>
 #include <chrono>
 #include "../headers/visualize.hpp"
+#include <unistd.h>
 
 using namespace std;
 
@@ -104,8 +104,8 @@ void displayList(struct List* sNode)
     }
     cout << endl;
 
-    // Espera por meio segundo e apaga 
-    this_thread::sleep_for(chrono::milliseconds(500));
+    // Espera por um segundo e apaga 
+    sleep(1);
 
    system("clear||cls");
 }
