@@ -250,14 +250,14 @@ int leftHeight(Node* root)
 }
 
 // Verifica se uma árvore é perfeita
-bool isPerfect(Node* root, int iHeight, int iDepth)
+bool isPerfect(Node* root, int iLevel, int iHeight)
 {
     if(root == nullptr) return true; // Se a raíz é nula, é perfeita
 
     // Verifica se o nó é uma folha
     if (root -> ptrLeft == nullptr && root -> ptrRight == nullptr)
     {
-        if(iHeight == iDepth + 1) return true; // Se é uma folha, verifica se seu nível é correspondente ao das outras
+        if(iLevel == iHeight + 1) return true; // Se é uma folha, verifica se seu nível é correspondente ao das outras
         return false;
     }
     
@@ -265,7 +265,7 @@ bool isPerfect(Node* root, int iHeight, int iDepth)
     if (root -> ptrLeft == nullptr || root -> ptrRight == nullptr) return false;
     
     // Verifica se as sub-árvores também são perfeitas, aumentando em 1 o nível atual
-    if(isPerfect(root -> ptrLeft, iHeight, iDepth + 1) && isPerfect(root -> ptrRight, iHeight, iDepth + 1)) return true;
+    if(isPerfect(root -> ptrLeft, iLevel, iHeight + 1) && isPerfect(root -> ptrRight, iLevel, iHeight + 1)) return true;
     return false;
 }
 
@@ -440,8 +440,8 @@ void perfeita(Node* root)
 {
     clock_t start = clock();
 
-    int iHeight = leftHeight(root);
-    if(isPerfect(root, iHeight, 0))
+    int iLevel = leftHeight(root) + 1;
+    if(isPerfect(root, iLevel, 0))
     {
         cout << "A árvore é perfeita";
     }
