@@ -35,8 +35,8 @@ O módulo [list.hpp](headers/list.hpp), por sua vez, apresenta todas as funçõe
 O módulo [visualize.hpp](headers/visualize.hpp) inclui as funções de visualização desenvolvidas em [visualize.cpp](sources/visualize.cpp). Através delas, foram incluídas representações gráficas para os algoritmos de ordenação citados anteriormente.
 
 ### Main:
-Finalmente, através do arquivo [main.cpp](main.cpp) podemos executar todo o código.
-Na pasta [output](output) estão os arquivos .exe.
+Finalmente, através do arquivo [main.cpp](main.cpp) podemos executar todo o código. \
+IMPORTANTE: o arquivo executável da main deve estar na raiz do diretório.
 
 ## Checklist objetivos:
 - [x] Menu ASCII: [menu.hpp](headers/menu.hpp) e [menu.cpp](sources/menu.cpp)
