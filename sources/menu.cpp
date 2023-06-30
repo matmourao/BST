@@ -8,8 +8,9 @@ using namespace std;
 Node* buildFile()
 {
     clock_t start = clock();
-    Node* root = nullptr;
+    Node* root = nullptr; // Inicializa o root com nullptr
 
+    // Salva o arquivo .txt:
     string strFile;
     cout << "Digite o nome do arquivo localizado na pasta 'arvores': ";
     cin >> strFile;
@@ -20,7 +21,7 @@ Node* buildFile()
 
     while(getline(fsFile, strVal))
     {
-        root = insertTree(root, stoi(strVal));
+        root = insertTree(root, stoi(strVal)); // Insere o valor de cada linha do arquivo na arvore
     }
     
     cout << "Árvore criada!" << endl;
@@ -39,16 +40,17 @@ Node* buildInput()
     cout << "Digite 'N' quando tiver acabado" << endl;
 
     clock_t start = clock();
-    Node* root = nullptr;
+    Node* root = nullptr; // Inicializa o root com nullptr
 
     while(true)
     {
+        // Salva o input
         string strInput;
         cin >> strInput;
 
-        if(strInput == "N") break;
+        if(strInput == "N") break; // Indica quando acabaram os elementos
 
-        root = insertTree(root, stoi(strInput));
+        root = insertTree(root, stoi(strInput)); // Adiciona o valor do input na arvore
     }
 
     cout << "Árvore criada!" << endl;
@@ -61,6 +63,7 @@ Node* buildInput()
     return root;
 }
 
+// Chama as funcoes buildFile ou buildInput, dependendo do input recebido
 Node* buildTree()
 {
     cout << "Para construir uma árvore através de arquivo, digite 'file' " << endl;
@@ -84,11 +87,7 @@ Node* buildTree()
     return buildTree();
 }
 
-void printInstruc()
-{
-    cout << "Instruções" << endl;
-}
-
+// Imprime o valor retornado por treeHeight(root)
 void altura(Node* root)
 {
     clock_t start = clock();
@@ -101,6 +100,7 @@ void altura(Node* root)
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
 
+// Imprime o valor retornado por treeSize(root)
 void tamanho(Node* root)
 {
     clock_t start = clock();
@@ -113,6 +113,7 @@ void tamanho(Node* root)
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
 
+// Chama a funcao insertTree com o root dado e o valor recebido por input
 void inserir(Node* root)
 {
     int iData;
@@ -130,6 +131,7 @@ void inserir(Node* root)
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
 
+// Chama a funcao deleteNode com o root dado e o valor recebido por input 
 Node* remove(Node* root)
 {
     int iData;
@@ -148,27 +150,31 @@ Node* remove(Node* root)
     return ptrTemp;
 }
 
+
+// Imprime o endereço do elemento a ser buscado
 void search(Node* root)
 {
+    // Salva o valor do elemento, recebido por input
     int iData;
     cout << "Digite o valor que deseja encontrar o endereço: ";
     cin >> iData;
 
     clock_t start = clock();
-    Node* ptrNode = searchNode(root, iData);
+    Node* ptrNode = searchNode(root, iData); // atribui a ptrNode o ponteiro retornado
     clock_t end = clock();
 
     if(ptrNode == nullptr)
     {
-        cout << "Valor não encontrado!";
+        cout << "Valor não encontrado!"; // Se for nullptr, imprime "Valor não encontrado!" 
     }
-    else cout << "Endereço: " << ptrNode;
-    cout << endl;
+    else cout << "Endereço: " << ptrNode; // Se não for, imprime o endereço do elemento
+    cout << endl; // Quebra a linha
 
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
 
+// Imprime se a árvore é completa ou não, dependendo do retorno da funcao isComplete
 void completa(Node* root)
 {
     clock_t start = clock();
@@ -186,6 +192,7 @@ void completa(Node* root)
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
 
+// Imprime se a árvore é perfeita ou não, dependendo do retorno da funcao isPerfect
 void perfeita(Node* root)
 {
     clock_t start = clock();
@@ -219,9 +226,9 @@ void bubble(Node* root)
 {
     clock_t start = clock();
 
-    List* head = treeToList(root);
-    bubbleSort(&head);
-    printList(head);
+    List* head = treeToList(root); // Atribui a árvore convertida em lista a head
+    bubbleSort(&head); // Chama a bubbleSort com essa lista
+    printList(head); // Imprime a lista ordenada
 
     clock_t end = clock();
 
@@ -233,9 +240,9 @@ void selection(Node* root)
 {
     clock_t start = clock();
 
-    List* head = treeToList(root);
-    selectionSort(&head);
-    printList(head);
+    List* head = treeToList(root); // Atribui a árvore convertida em lista a head
+    selectionSort(&head); // Chama a selectionSort com essa lista
+    printList(head); // Imprime a lista ordenada
 
     clock_t end = clock();
 
@@ -247,9 +254,9 @@ void insertion(Node* root)
 {
     clock_t start = clock();
     
-    List* head = treeToList(root);
-    insertionSort(&head);
-    printList(head);
+    List* head = treeToList(root); // Atribui a árvore convertida em lista a head
+    insertionSort(&head); // Chama a insertionSort com essa lista
+    printList(head); // Imprime a lista ordenada
 
     clock_t end = clock();
 
@@ -261,9 +268,9 @@ void shell(Node* root)
 {
     clock_t start = clock();
 
-    List* head = treeToList(root);
-    shellSort(&head);
-    printList(head);
+    List* head = treeToList(root); // Atribui a árvore convertida em lista a head
+    shellSort(&head); // Chama a shellSort com essa lista
+    printList(head); // Imprime a lista ordenada
 
     clock_t end = clock();
 
@@ -271,18 +278,42 @@ void shell(Node* root)
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
 
+// Imprime as intrucoes
+void printInstruc()
+{
+    cout << "Instruções:" << endl;
+    cout << "Digite 'altura' para ver a altura da árvore;" << endl;
+    cout << "Digite 'tamanho' para ver o tamanho da árvore;" << endl;
+    cout << "Digite 'inserir' para inserir um novo nó na árvore;" << endl;
+    cout << "Digite 'remove' para remover um nó da árvore;" << endl;
+    cout << "Digite 'search' para buscar um elemento e imprimir seu endereço de memória;" << endl;
+    cout << "Digite 'completa' para saber se a árvore é completa;" << endl;
+    cout << "Digite 'perfeita' para saber se a árvore é perfeita;" << endl;
+    cout << "Digite 'print' para exibir a árvore utilizando BFS;" << endl;
+    cout << "Digite 'bubble' para converter a árvore em uma lista e ordenar com Bubble Sort" << endl;
+    cout << "Digite 'selection' para converter a árvore em uma lista e ordenar com Selection Sort" << endl;
+    cout << "Digite 'insertion' para converter a árvore em uma lista e ordenar com Insertion Sort" << endl;
+    cout << "Digite 'shell' para converter a árvore em uma lista e ordenar com Shell Sort" << endl;
+    cout << "Digite 'exit' para sair do programa." << endl;
+}
+
 void menu(Node* root)
 {
-    printInstruc();
+    printInstruc(); // Imprime as intrucoes na primeira vez que for chamada
 
     while(true)
     {
+        // A cada loop, imprime o input para rever as intrucoes
+        cout << "Digite 'instructions' para rever as instruções" << endl;
         string strInput;
         cin >> strInput;
+        system("clear||cls"); // Depois do input ser dado, apaga o que foi printado antes
+
+        // Chama cada funcao relativa ao input dado e continua para o proximo loop:
 
         if(strInput == "exit")
         {
-            return;
+            return; // Para sair do menu, da return, encerrando a funcao
         }
 
         if(strInput == "instructions")
@@ -312,7 +343,6 @@ void menu(Node* root)
         if(strInput == "remove")
         {
             root = remove(root);
-            cout << "Nó removido!" << endl;
             continue;
         }
 
@@ -364,6 +394,7 @@ void menu(Node* root)
             continue;
         }
 
-        cout << "Input inválido! Digite 'instructions' para rever as instruções." << endl;
+        // Se nao entrou em nenhum if, informa que o input é invalido e continua o loop
+        cout << "Input inválido!" << endl;
     }
 }
