@@ -21,7 +21,7 @@ O módulo [tree.hpp](headers/tree.hpp) abrange todas as funções que dizem resp
 
 - Os arquivos .txt, para a criação de BST’s, estão disponíveis na pasta [arvores](arvores), além da representação gráfica das árvores construídas a partir deles.
 
-- Mais uma vez, o código de desenvolvimento pode ser encontrado em [sources](sources), no arquivo [sources/tree.cpp](tree.cpp). Nele se encontram funções que verificam se a árvore é perfeita ou se está completa, qual é sua altura ou tamanha, e que inserem, deletam ou buscam elementos.
+- Mais uma vez, o código de desenvolvimento pode ser encontrado em [sources](sources), no arquivo [tree.cpp](sources/tree.cpp). Nele se encontram funções que verificam se a árvore é perfeita ou se está completa, qual é sua altura ou tamanha, e que inserem, deletam ou buscam elementos.
 
 ### Queue:
 O módulo [queue.hpp](headers/queue.hpp) inclui as funções de fila, desenvolvidas no arquivo [queue.cpp](sources/queue.cpp) e utilizadas como auxiliares na criação da visualização gráfica das árvores. Uma biblioteca pronta poderia ter sido utilizada, mas optamos pelo desenvolvimento das nossas próprias funções.
