@@ -3,27 +3,27 @@
 
 using namespace std;
 
-Node* newNode(int iVal)
+Node* newNode(int iValue)
 {
     Node* ptrTemp = (Node*) malloc(sizeof(Node));
     ptrTemp -> ptrRight = nullptr;
     ptrTemp -> ptrLeft = nullptr;
-    ptrTemp -> iData = iVal;
+    ptrTemp -> iData = iValue;
 
     return ptrTemp;
 }
 
-Node* insertTree(Node* sNode, int iVal)
+Node* insertTree(Node* sNode, int iValue)
 {
-    if(sNode == nullptr) return newNode(iVal);
+    if(sNode == nullptr) return newNode(iValue);
     
-    if(iVal < sNode->iData)
+    if(iValue < sNode->iData)
     {
-        sNode->ptrLeft = insertTree(sNode->ptrLeft, iVal);
+        sNode -> ptrLeft = insertTree(sNode -> ptrLeft, iValue);
     }
     else
     {
-        sNode->ptrRight = insertTree(sNode->ptrRight, iVal);
+        sNode -> ptrRight = insertTree(sNode -> ptrRight, iValue);
     }
 
     return sNode;
@@ -47,53 +47,53 @@ Node* searchParent(Node* root, Node* sNode)
     if(sNode == root) return nullptr; // Se o nó dado é nulo então retornará nulo
     if(root == nullptr) return nullptr; // Se a árvore é nula então retornará nulo
 
-    int iValue = sNode->iData;
+    int iValue = sNode -> iData;
 
     // Verifica se root é o nó pai
-    if(root->ptrLeft == sNode) return root;
-    if(root->ptrRight == sNode) return root;
+    if(root -> ptrLeft == sNode) return root;
+    if(root -> ptrRight == sNode) return root;
 
     // Se não for, busca para a sub-árvore a direita ou a esquerda
-    if(iValue < root->iData) return searchParent(root->ptrLeft, sNode);
-    else return searchParent(root->ptrRight, sNode);
+    if(iValue < root->iData) return searchParent(root -> ptrLeft, sNode);
+    else return searchParent(root -> ptrRight, sNode);
 }
 
 // Realiza a troca entre um node e a root da sua arvore, retornando o novo root
 Node* swapRoot(Node* root, Node* sNode)
 {
-    //se root for pai do Node, basta realizar a troca dos ponteiros
-    if(root->ptrRight == sNode)
+    // Se root for pai do Node, basta realizar a troca dos ponteiros
+    if(root -> ptrRight == sNode)
     {
-        Node* sLeft = root->ptrLeft;
-        root->ptrLeft = sNode->ptrLeft;
-        root->ptrRight = sNode->ptrRight;
-        sNode->ptrRight = root;
-        sNode->ptrLeft = sLeft;        
+        Node* sLeft = root -> ptrLeft;
+        root -> ptrLeft = sNode -> ptrLeft;
+        root -> ptrRight = sNode -> ptrRight;
+        sNode -> ptrRight = root;
+        sNode -> ptrLeft = sLeft;        
     }
-    else if(root->ptrLeft == sNode)
+    else if(root -> ptrLeft == sNode)
     {
-        Node* sRight = root->ptrRight;
-        root->ptrLeft = sNode->ptrLeft;
-        root->ptrRight = sNode->ptrRight;
-        sNode->ptrLeft = root;
-        sNode->ptrRight = sRight; 
+        Node* sRight = root -> ptrRight;
+        root -> ptrLeft = sNode -> ptrLeft;
+        root -> ptrRight = sNode -> ptrRight;
+        sNode -> ptrLeft = root;
+        sNode -> ptrRight = sRight; 
     }
 
-    //se não for, a troca é mais complicada
+    // Se não for, a troca é mais complicada
     else
     {
-        //faz o pai do Node apontar para o filho do root
+        // Faz o pai do Node apontar para o filho do root
         Node* sParent = searchParent(root, sNode);
-        if(sNode->iData < sParent->iData) sParent->ptrLeft = root;
-        else sParent->ptrRight = root;
+        if(sNode -> iData < sParent -> iData) sParent -> ptrLeft = root;
+        else sParent -> ptrRight = root;
         
-        //troca os ponteiros Right e Left do root com o Node
-        Node* sLeft = root->ptrLeft;
-        Node* sRight = root->ptrRight;
-        root->ptrRight = sNode->ptrRight;
-        root->ptrLeft = sNode->ptrLeft;
-        sNode->ptrRight = sRight;
-        sNode->ptrLeft = sLeft;
+        // Troca os ponteiros Right e Left do root com o Node
+        Node* sLeft = root -> ptrLeft;
+        Node* sRight = root -> ptrRight;
+        root -> ptrRight = sNode -> ptrRight;
+        root -> ptrLeft = sNode -> ptrLeft;
+        sNode -> ptrRight = sRight;
+        sNode -> ptrLeft = sLeft;
     }
 
     return sNode;
@@ -102,27 +102,27 @@ Node* swapRoot(Node* root, Node* sNode)
 // Realiza a troca e retorna o root
 Node* swapTree(Node* root, Node* sNode1, Node* sNode2)
 {
-    //se um dos nodes for o root. chama swapRoot
+    // Se um dos nodes for o root. chama swapRoot
     if(sNode1 == root) return swapRoot(root, sNode2);
     if(sNode2 == root) return swapRoot(root, sNode1);
 
-    //define os ponteiros dos pais
+    // Define os ponteiros dos pais
     Node* sParent1 = searchParent(root, sNode1);
     Node* sParent2 = searchParent(root, sNode2);
 
-    //faz os pais apontarem para seus novos filhos
-    if(sNode1->iData < sParent1->iData) sParent1->ptrLeft = sNode2;
-    else sParent1->ptrRight = sNode2;
-    if(sNode2->iData < sParent2->iData) sParent2->ptrLeft = sNode1;
-    else sParent2->ptrRight = sNode1;
+    // Faz os pais apontarem para seus novos filhos
+    if(sNode1 -> iData < sParent1 -> iData) sParent1 -> ptrLeft = sNode2;
+    else sParent1 -> ptrRight = sNode2;
+    if(sNode2 -> iData < sParent2 -> iData) sParent2 -> ptrLeft = sNode1;
+    else sParent2 -> ptrRight = sNode1;
 
-    //troca os ponteiros Right e Left do Node1 com o Node2
-    Node* sLeft1 = sNode1->ptrLeft;
-    Node* sRight1 = sNode1->ptrRight;
-    sNode1->ptrRight = sNode2->ptrRight;
-    sNode1->ptrLeft = sNode2->ptrLeft;
-    sNode2->ptrRight = sRight1;
-    sNode2->ptrLeft = sLeft1;
+    // Troca os ponteiros Right e Left do Node1 com o Node2
+    Node* sLeft1 = sNode1 -> ptrLeft;
+    Node* sRight1 = sNode1 -> ptrRight;
+    sNode1 -> ptrRight = sNode2 -> ptrRight;
+    sNode1 -> ptrLeft = sNode2 -> ptrLeft;
+    sNode2 -> ptrRight = sRight1;
+    sNode2 -> ptrLeft = sLeft1;
 
     return root;
 }
@@ -188,7 +188,7 @@ Node* deleteNode(struct Node* sNode, int iValue, Node* root)
         // Se o nó possui dois filho, procura o menor nó a direita para substituí-lo, garantindo a estabilidade da árvore 
         ptrTemp = lesserLeaf(sNode -> ptrRight);
 
-        //Troca os nós de lugar e continua o processo para a nova arvore
+        // Troca os nós de lugar e continua o processo para a nova arvore
         root = swapTree(root, sNode, ptrTemp);
         ptrTemp -> ptrRight = deleteNode(ptrTemp -> ptrRight, iValue, root);
         return ptrTemp;
@@ -263,23 +263,23 @@ bool isPerfect(Node* root, int iLevel, int iHeight)
 void BFS(Node* root) 
 {
     // Enfileira o nó raiz.
-    enfileirar(root);
+    enQueue(root);
 
     while(!isQueueEmpty()) 
     { 
         // Desenfileira o próximo nó.
-        Node* currentNode = desenfileirar();
+        Node* currentNode = deQueue();
 
         // Imprime o valor do nó.
         cout << currentNode->iData << ' ';
 
         // Enfileira os filhos (se existirem).
         if(currentNode->ptrLeft != nullptr) {
-            enfileirar(currentNode->ptrLeft);
+            enQueue(currentNode->ptrLeft);
         }
 
         if(currentNode->ptrRight != nullptr) {
-            enfileirar(currentNode->ptrRight);
+            enQueue(currentNode->ptrRight);
         }
     }
 }

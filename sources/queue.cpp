@@ -5,7 +5,7 @@ QueueNode* front = nullptr;
 QueueNode* rear = nullptr;
 
 // Implementação da função enfileirar
-void enfileirar(Node* treeNode) 
+void enQueue(Node* treeNode) 
 {
     QueueNode* temp = new QueueNode();
     temp->treeNode = treeNode;
@@ -21,7 +21,7 @@ void enfileirar(Node* treeNode)
 }
 
 // Implementação da função desenfileirar
-Node* desenfileirar() 
+Node* deQueue() 
 {
     if(front == nullptr) {
         return nullptr;

@@ -10,87 +10,97 @@
 using namespace std;
 
 // Função para calcular o número de dígitos de um número
-int numDigits(int number)
+int numDigits(int iNumber)
 {
-    int digits = 0;
+    int iDigits = 0;
 
-    while (number)
+    while(iNumber)
     {
-        number /= 10;
-        digits++;
+        iNumber /= 10;
+        iDigits++;
     }
 
-    return digits;
+    return iDigits;
 }
 
 // Função para calcular o número de hashtags para cada valor na lista vinculada
-map<int, int> calculateHashes(struct List* head)
+// Seria mais fácil apenas colocar um número de hashtags correspondente ao número do nó, mas, 
+// para números muito grandes, isso dificultaria a visualização
+map<int, int> calculateHashes(List* sNode)
 {
     // Cria um vetor para armazenar os valores dos nós
-    vector<int> values;
-    struct List* node = head;
+    vector<int> viValues;
+    List* ptrTemp = sNode;
 
     // Percorre a lista vinculada e adicionar os valores ao vetor
-    while (node != nullptr)
+    while(ptrTemp != nullptr)
     {
-        values.push_back(node->iData);
-        node = node->ptrNext;
+        viValues.push_back(ptrTemp -> iData);
+        ptrTemp = ptrTemp -> ptrNext;
     }
 
     // Ordena o vetor em ordem crescente
-    sort(values.begin(), values.end());
+    sort(viValues.begin(), viValues.end());
 
     // Cria um mapa para armazenar o valor e o número de hashtags correspondente
-    map<int, int> hashes;
+    map<int, int> miHashes;
 
     // Atribui o número de hashtags para cada valor
-    for (vector<int>::size_type i = 0; i < values.size(); ++i)
+    for(vector<int>::size_type i = 0; i < viValues.size(); ++i)
     {
-        hashes[values[i]] = i + 1;
+        miHashes[viValues[i]] = i + 1;
     }
 
-    return hashes;
+    return miHashes;
 }
 
-void displayList(struct List* head)
+void displayList(struct List* sNode)
 {
     // Calcule o número de hashtags para cada valor
-    map<int, int> hashes = calculateHashes(head);
+    map<int, int> miHashes = calculateHashes(sNode);
+
+    int iMaxValue = 0;
+    int iMaxDigits = 0;
 
     // Encontra o valor máximo no mapa de hashes
     // Fazemos isso para que nunca tenhamos barras verticais desalinhadas com os números
-    int max_val = 0;
-    int max_digits = 0;
-    for (auto& pair : hashes)
+    for(auto& pair : miHashes)
     {
-        if (pair.second > max_val)
-            max_val = pair.second;
-        int digits = numDigits(pair.first);
-        if (digits > max_digits)
-            max_digits = digits;
+        if(pair.second > iMaxValue)
+            iMaxValue = pair.second;
+
+        int iDigits = numDigits(pair.first);
+
+        if(iDigits > iMaxDigits)
+            iMaxDigits = iDigits;
     }
 
     // Imprime as barras
-    for (int height = max_val; height >= 1; --height)
+    for(int iHeight = iMaxValue; iHeight >= 1; --iHeight)
     {
-        struct List* node = head;
-        while (node != nullptr)
+        List* ptrTemp1 = sNode;
+        while(ptrTemp1 != nullptr)
         {
-            if (hashes[node->iData] >= height)
-                cout << string(max_digits, '#') + " ";
-            else
-                cout << string(max_digits, ' ') + " ";
-            node = node->ptrNext;
+            if(miHashes[ptrTemp1 -> iData] >= iHeight) 
+            {
+                cout << string(iMaxDigits, '#') + " ";
+            }
+            else 
+            {
+                cout << string(iMaxDigits, ' ') + " ";
+            }
+
+            ptrTemp1 = ptrTemp1 -> ptrNext;
         }
         cout << endl;
     }
 
     // Imprime os números
-    struct List* node = head;
-    while (node != nullptr)
+    List* ptrTemp2 = sNode;
+    while(ptrTemp2 != nullptr)
     {
-        cout << setw(max_digits) << node->iData << ' ';
-        node = node->ptrNext;
+        cout << setw(iMaxDigits) << ptrTemp2 -> iData << ' ';
+        ptrTemp2 = ptrTemp2 -> ptrNext;
     }
     cout << endl;
 

@@ -17,15 +17,19 @@ Node* buildFile()
 
     fstream fsFile(strPath);
     string strVal;
+
     while(getline(fsFile, strVal))
     {
         root = insertTree(root, stoi(strVal));
     }
     
     cout << "Árvore criada!" << endl;
+
     clock_t end = clock();
+
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
     cout << "Tempo levado: " << elapsed << " seg" << endl;
+
     return root;
 }
 
@@ -48,9 +52,12 @@ Node* buildInput()
     }
 
     cout << "Árvore criada!" << endl;
+
     clock_t end = clock();
+
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
     cout << "Tempo levado: " << elapsed << " seg" << endl;
+
     return root;
 }
 
@@ -73,6 +80,7 @@ Node* buildTree()
     }
 
     cout << "Input inválido!" << endl;
+
     return buildTree();
 }
 
@@ -88,6 +96,7 @@ void altura(Node* root)
     cout << "Altura = " << treeHeight(root) << endl;
     
     clock_t end = clock();
+
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
@@ -99,6 +108,7 @@ void tamanho(Node* root)
     cout << "Tamanho = " << treeSize(root) << endl;
 
     clock_t end = clock();
+
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
@@ -115,6 +125,7 @@ void inserir(Node* root)
     cout << "Nó inserido!" << endl;
 
     clock_t end = clock();
+
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
@@ -130,6 +141,7 @@ Node* remove(Node* root)
     clock_t end = clock();
 
     cout << "Nó removido!" << endl;
+
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
     cout << "Tempo levado: " << elapsed << " seg" << endl;
     
@@ -148,9 +160,10 @@ void search(Node* root)
 
     if(ptrNode == nullptr)
     {
-        cout << "Valor não encontrado!" << endl;
+        cout << "Valor não encontrado!";
     }
-    else cout << "Endereço: " << ptrNode << endl;
+    else cout << "Endereço: " << ptrNode;
+    cout << endl;
 
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
     cout << "Tempo levado: " << elapsed << " seg" << endl;
@@ -168,6 +181,7 @@ void completa(Node* root)
     cout << endl;
 
     clock_t end = clock();
+
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
@@ -210,6 +224,7 @@ void bubble(Node* root)
     printList(head);
 
     clock_t end = clock();
+
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
@@ -223,6 +238,7 @@ void selection(Node* root)
     printList(head);
 
     clock_t end = clock();
+
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
@@ -232,10 +248,11 @@ void insertion(Node* root)
     clock_t start = clock();
     
     List* head = treeToList(root);
-    insertSort(&head);
+    insertionSort(&head);
     printList(head);
 
     clock_t end = clock();
+
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
@@ -249,6 +266,7 @@ void shell(Node* root)
     printList(head);
 
     clock_t end = clock();
+
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
     cout << "Tempo levado: " << elapsed << " seg" << endl;
 }
