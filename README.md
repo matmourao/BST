@@ -32,7 +32,7 @@ O módulo [list.hpp](headers/list.hpp), por sua vez, apresenta todas as funçõe
 - O desenvolvimento dos algoritmos de ordenamento e outras funções relacionadas a listas duplamente encadeadas podem ser encontrados em [list.cpp](sources/list.cpp).
 
 ### Visualize:
-O módulo [visualize.hpp](headers/visualize.hpp) inclui as funções de visualização desenvolvidas em [visualize.cpp](soucers/visualize.cpp). Através delas, foram incluídas representações gráficas para os algoritmos de ordenação citados anteriormente.
+O módulo [visualize.hpp](headers/visualize.hpp) inclui as funções de visualização desenvolvidas em [visualize.cpp](sources/visualize.cpp). Através delas, foram incluídas representações gráficas para os algoritmos de ordenação citados anteriormente.
 
 ### Main:
 Finalmente, através do arquivo [main.cpp](main.cpp) podemos executar todo o código.
