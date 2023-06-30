@@ -41,7 +41,7 @@ Na pasta [output](output) estão os arquivos .exe.
 ## Checklist objetivos:
 - [x] Menu ASCII: [menu.hpp](headers/menu.hpp) e [menu.cpp](sources/menu.cpp)
 - [x] Tempo de processamento: clock() no começo e no fim de cada função
-- [x] Construção de BST por .txt: buildFile() em [menu.cpp](sources/menu.cpp)
+- [x] Construção de BST por .txt: buildFile() em [menu.cpp](sources/menu.cpp) (o arquivo txt deve estar em [arvores](arvores) e cada elemento deve estar em uma linha) 
 - [x] Construção de BST por usário: buildInput() em [menu.cpp](sources/menu.cpp)
 - [x] Altura da árvore: treeHeight() em [tree.cpp](sources/tree.cpp)
 - [x] Tamanho da árvore: treeSize() em [tree.cpp](sources/tree.cpp)
@@ -50,7 +50,7 @@ Na pasta [output](output) estão os arquivos .exe.
 - [x] Busca de elemento por usuário: searchNode() em [tree.cpp](sources/tree.cpp)
 - [x] Árvore completa: isComplete em [tree.cpp](sources/tree.cpp)
 - [x] Árvore perfeita: isPerfect() em [tree.cpp](sources/tree.cpp)
-- [x] Visualização da árvore: BFS() em [tree.cpp](sources/tree.cpp)
+- [x] Visualização da árvore: BFS() em [tree.cpp](sources/tree.cpp) (funções auxiliares em [queue.cpp](sources/queue.cpp)
 - [x] Conversão da árvore em lista: treeToList em [list.cpp](sources/list.cpp)
 - [x] Bubble Sort: bubbleSort em [list.cpp](sources/list.cpp)
 - [x] Selection Sort: selectionSort em [list.cpp](sources/list.cpp)
