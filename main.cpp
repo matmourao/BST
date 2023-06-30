@@ -2,6 +2,7 @@
 #include "sources/nodes.cpp"
 #include "sources/queue.cpp"
 #include "sources/tree.cpp"
+#include "sources/visualize.cpp"
 #include "sources/list.cpp"
 #include "sources/menu.cpp"
 

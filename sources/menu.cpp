@@ -10,9 +10,10 @@ Node* buildFile()
     clock_t start = clock();
     Node* root = nullptr;
 
-    string strPath;
-    cout << "Digite o path do arquivo: ";
-    cin >> strPath;
+    string strFile;
+    cout << "Digite o nome do arquivo localizado na pasta 'arvores': ";
+    cin >> strFile;
+    string strPath = "arvores/" + strFile;
 
     fstream fsFile(strPath);
     string strVal;
@@ -206,6 +207,7 @@ void bubble(Node* root)
 
     List* head = treeToList(root);
     bubbleSort(&head);
+    printList(head);
 
     clock_t end = clock();
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
@@ -218,6 +220,7 @@ void selection(Node* root)
 
     List* head = treeToList(root);
     selectionSort(&head);
+    printList(head);
 
     clock_t end = clock();
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
@@ -227,9 +230,10 @@ void selection(Node* root)
 void insertion(Node* root)
 {
     clock_t start = clock();
-
+    
     List* head = treeToList(root);
     insertSort(&head);
+    printList(head);
 
     clock_t end = clock();
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
@@ -242,6 +246,7 @@ void shell(Node* root)
 
     List* head = treeToList(root);
     shellSort(&head);
+    printList(head);
 
     clock_t end = clock();
     double elapsed = double(end - start)/double(CLOCKS_PER_SEC);
