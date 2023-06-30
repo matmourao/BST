@@ -12,7 +12,7 @@ Node* buildFile()
 
     // Salva o arquivo .txt:
     string strFile;
-    cout << "Digite o nome do arquivo localizado na pasta 'arvores': ";
+    cout << "Digite o nome do arquivo (com a extenção) localizado na pasta 'arvores': (fileName.txt)" << endl;
     cin >> strFile;
     string strPath = "arvores/" + strFile;
 
