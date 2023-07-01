@@ -6,7 +6,7 @@ using namespace std;
 
 List* newList(int iValue)
 {
-    List* ptrNewList = new List;
+    List* ptrNewList = (List*) malloc(sizeof(List));
     ptrNewList -> iData = iValue;
     ptrNewList -> ptrNext = nullptr;
     ptrNewList -> ptrPrev = nullptr;

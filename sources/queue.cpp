@@ -6,8 +6,8 @@ QueueNode* rear = nullptr;
 
 // Implementação da função enfileirar
 void enQueue(Node* treeNode) 
-{
-    QueueNode* temp = new QueueNode(); // Cria uma nova queueNode
+{   
+    QueueNode* temp = (QueueNode*) malloc(sizeof(QueueNode)); // Cria uma nova queueNode
     temp->treeNode = treeNode; // Atribui o valor do nó da árvore à queueNode
     temp->next = nullptr; // Atribui nullptr ao ponteiro next da queueNode
 

@@ -10,7 +10,9 @@ using namespace std;
 
 int main()
 {
-    cout << "Bem vindo!" << endl;
+    cout << "####################################################" << endl;
+    cout << "#                   BEM VINDO!                     #" << endl;
+    cout << "####################################################" << endl;
 
     Node* root = buildTree();
 

@@ -66,8 +66,14 @@ Node* buildInput()
 // Chama as funcoes buildFile ou buildInput, dependendo do input recebido
 Node* buildTree()
 {
-    cout << "Para construir uma árvore através de arquivo, digite 'file' " << endl;
-    cout << "Para construir uma árvore através de input, digite 'input' " << endl;
+    cout << "===========================================" << endl;
+    cout << "              MENU DE OPÇÕES               " << endl;
+    cout << "===========================================" << endl;
+    cout << "| Para construir uma árvore através de   |" << endl;
+    cout << "| arquivo, digite 'file'                 |" << endl;
+    cout << "| Para construir uma árvore através de   |" << endl;
+    cout << "| input, digite 'input'                  |" << endl;
+    cout << "===========================================" << endl;
 
     string strInput;
     cin >> strInput;
@@ -281,20 +287,23 @@ void shell(Node* root)
 // Imprime as intrucoes
 void printInstruc()
 {
-    cout << "Instruções:" << endl;
-    cout << "Digite 'altura' para ver a altura da árvore;" << endl;
-    cout << "Digite 'tamanho' para ver o tamanho da árvore;" << endl;
-    cout << "Digite 'inserir' para inserir um novo nó na árvore;" << endl;
-    cout << "Digite 'remove' para remover um nó da árvore;" << endl;
-    cout << "Digite 'search' para buscar um elemento e imprimir seu endereço de memória;" << endl;
-    cout << "Digite 'completa' para saber se a árvore é completa;" << endl;
-    cout << "Digite 'perfeita' para saber se a árvore é perfeita;" << endl;
-    cout << "Digite 'print' para exibir a árvore utilizando BFS;" << endl;
-    cout << "Digite 'bubble' para converter a árvore em uma lista e ordenar com Bubble Sort" << endl;
-    cout << "Digite 'selection' para converter a árvore em uma lista e ordenar com Selection Sort" << endl;
-    cout << "Digite 'insertion' para converter a árvore em uma lista e ordenar com Insertion Sort" << endl;
-    cout << "Digite 'shell' para converter a árvore em uma lista e ordenar com Shell Sort" << endl;
-    cout << "Digite 'exit' para sair do programa." << endl;
+    cout << "####################################################" << endl;
+    cout << "#                    INSTRUÇÕES                    #" << endl;
+    cout << "####################################################" << endl;
+    cout << "# Digite 'altura' para ver a altura da árvore;     #" << endl;
+    cout << "# Digite 'tamanho' para ver o tamanho da árvore;   #" << endl;
+    cout << "# Digite 'inserir' para inserir um novo nó;        #" << endl;
+    cout << "# Digite 'remove' para remover um nó da árvore;    #" << endl;
+    cout << "# Digite 'search' para buscar um elemento;         #" << endl;
+    cout << "# Digite 'completa' para saber se é completa;      #" << endl;
+    cout << "# Digite 'perfeita' para saber se é perfeita;      #" << endl;
+    cout << "# Digite 'print' para exibir a árvore (BFS);       #" << endl;
+    cout << "# Digite 'bubble' para ordenar com Bubble Sort;    #" << endl;
+    cout << "# Digite 'selection' para ordenar com Selection;   #" << endl;
+    cout << "# Digite 'insertion' para ordenar com Insertion;   #" << endl;
+    cout << "# Digite 'shell' para ordenar com Shell Sort;      #" << endl;
+    cout << "# Digite 'exit' para sair do programa.             #" << endl;
+    cout << "####################################################" << endl;
 }
 
 void menu(Node* root)
